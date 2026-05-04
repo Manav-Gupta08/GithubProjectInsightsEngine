@@ -1,51 +1,66 @@
-# GitHub Insights Engine
+#  GitHub Insights Engine
 
-> A production-grade repository health analysis tool. Enter any GitHub repository and get a detailed breakdown of its activity, contributor diversity, maintenance quality, and an overall health score.
-
----
-
-## Why This Project Matters
-
-When evaluating an open-source library to use in production, most developers just look at star count. That misses critical signals — is it still actively maintained? How many contributors does it have? What percentage of PRs get merged? Are there hundreds of unresolved issues?
-
-This tool answers all of those questions in seconds, with a transparent, explainable scoring algorithm.
+> **Production-grade GitHub repository analysis tool**  
+Analyze any repository and instantly understand its **activity, maintainability, community strength, and overall health score**.
 
 ---
 
-## Features
+##  Overview
 
-| Feature | Details |
-|---|---|
-| **Health Score (0–100)** | Composite score across Activity, Community, and Maintenance dimensions |
-| **Red Flag Detection** | Automatic warnings: abandoned repos, bus-factor risk, issue backlogs, low PR acceptance |
-| **Commit Trend Chart** | 30-day daily commit activity visualised with Chart.js |
-| **Top Contributors** | Ranked list with contribution bars |
-| **PR Merge Rate** | What % of closed PRs were actually merged |
-| **Compare Mode** | Side-by-side head-to-head analysis of two repos |
-| **Batch Ranking** | Input up to 10 repos, get them ranked by health score |
-| **AI Insights** | Optional LLM-generated plain-English summary (requires Anthropic API key) |
-| **In-memory Cache** | 5-minute TTL cache to minimise GitHub API calls |
-| **RESTful API** | Clean JSON API with consistent response envelopes |
-| **Full Test Suite** | Unit tests for scoring logic + integration tests for all API endpoints |
-| **Docker Ready** | Multi-stage Dockerfile + docker-compose for one-command deployment |
+Choosing an open-source library based only on ⭐ stars is misleading.
+
+This tool helps you answer critical questions:
+
+- Is the project actively maintained?
+- How strong is the contributor base?
+- Are pull requests getting merged?
+- Is there an unresolved issue backlog?
+
+👉 Get **data-driven insights + a transparent scoring system** in seconds.
 
 ---
 
-## Tech Stack
+##  Key Features
 
-| Layer | Technology                                    |
-|---|-----------------------------------------------|
-| Backend | Python 3.11, Flask 3, flask-cors              |
-| Frontend | React 18, Vite, CSS Modules                   |
-| Charts | Chart.js 4, react-chartjs-2                   |
-| Data | GitHub REST API v3                            |
-| AI (optional) | Google Gemini API                             |
-| Testing | pytest, unittest.mock                         |
-| Deployment | Docker, Gunicorn, Render / Railway compatible |
+### Core Analysis
+- **Health Score (0–100)** — Based on Activity, Community, Maintenance
+- **Red Flag Detection** — Identify risky repositories instantly
+- **PR Merge Rate** — Understand contribution acceptance
+- **Issue Backlog Analysis** — Detect maintenance problems
+
+###  Visualization
+- **Commit Trend Chart (30 days)** — Built with Chart.js
+- **Top Contributors Ranking** — With contribution weight
+
+### Advanced Capabilities
+- **Compare Mode** — Side-by-side repo comparison
+- **Batch Ranking** — Rank up to 10 repositories
+- **AI Insights (optional)** — Natural language summary
+- **Caching Layer** — 5-minute TTL to reduce API calls
+- **REST API** — Clean and consistent JSON responses
+
+###  Engineering Quality
+- Full unit + integration tests
+- Docker-ready deployment
+- Modular architecture (MVC-inspired)
 
 ---
 
-## Project Structure
+##  Tech Stack
+
+| Layer        | Technology |
+|-------------|----------|
+| Backend     | Python 3.11, Flask 3 |
+| Frontend    | React 18, Vite |
+| Charts      | Chart.js |
+| Data Source | GitHub REST API |
+| AI (optional) | Google Gemini API |
+| Testing     | pytest |
+| Deployment  | Docker, Gunicorn |
+
+---
+
+##  Project Structure
 
 ```
 github-insights/
@@ -130,175 +145,89 @@ github-insights/
 
 ---
 
-## Scoring Algorithm
-
-The 0–100 health score is computed from **three weighted dimensions**, each built from individual signals:
+##  Scoring Algorithm
 
 ```
-Health Score = Activity(40%) + Community(30%) + Maintenance(30%)
-
-Activity:
-  commit_frequency  50%  — commits in last 30 days (log scale, ceiling 60)
-  commit_recency    35%  — days since last commit (linear decay over 30 days)
-  release_cadence   15%  — how recently and often releases ship
-
-Community:
-  stars             40%  — log₁₀ scale, 10k stars = full marks
-  contributor_count 40%  — log scale, 20+ contributors = full marks
-  forks             20%  — log₁₀ scale, 1k forks = full marks
-
-Maintenance:
-  pr_merge_rate     40%  — % of closed PRs that were merged
-  issue_resolution  35%  — commit activity relative to open issues
-  stale_issues      25%  — penalty for large unmanaged issue backlog
-```
-
-**Labels:**
-- ≥ 70 → **Active**
-- 40–69 → **Moderate**
-- < 40 → **Inactive**
-
-All weights live in `SCORE_CONFIG` in `analysis_service.py` — change them without touching signal logic.
-
----
-
-## Red Flag Detection
-
-| Flag | Condition | Severity |
-|---|---|---|
-| `ARCHIVED` | Repo is archived | High |
-| `NO_RECENT_COMMITS` | No commits in 6+ months | High |
-| `SINGLE_CONTRIBUTOR` | Only 1 contributor | High |
-| `ISSUE_BACKLOG` | 500+ open issues, <5 commits/month | High |
-| `LOW_CONTRIBUTOR_COUNT` | ≤2 contributors | Medium |
-| `GROWING_ISSUE_BACKLOG` | 200+ issues, <10 commits/month | Medium |
-| `LOW_PR_MERGE_RATE` | <30% of PRs merged | Medium |
-| `NO_RELEASES` | No versioned releases, but active code | Low |
-
----
-
-## API Reference
-
-### `GET /api/repos/<owner>/<repo>`
-
-```json
-{
-  "success": true,
-  "data": {
-    "repo":   { "full_name", "description", "language", "stars", "forks", ... },
-    "health": {
-      "health_score": 84,
-      "label": "Active",
-      "metrics": { "activity": 88, "community": 79, "maintenance": 82 },
-      "signal_scores": { "commit_frequency": 0.92, ... },
-      "commit_trend": { "labels": [...], "counts": [...] },
-      "pr_merge_rate": 0.87
-    },
-    "contributors": [ { "login", "contributions", "avatar_url" } ],
-    "warnings":     [ { "code", "severity", "message" } ],
-    "recommendation": "✅ Production-ready. Actively maintained..."
-  },
-  "meta": { "cached": false, "generated_at": "2024-05-20T10:00:00Z" }
-}
-```
-
-### `GET /api/repos/compare?repo1=owner/repo&repo2=owner/repo`
-
-Returns `{ repo_1: {...}, repo_2: {...}, comparison: { winners, summary } }`
-
-### `POST /api/repos/batch`
-
-```json
-// Request
-{ "repos": ["facebook/react", "vuejs/vue", "sveltejs/svelte"] }
-
-// Response data
-{
-  "results": [ { "rank": 1, "slug": "facebook/react", "health_score": 84, ... } ],
-  "failed":  []
-}
-```
-
-### `GET /api/repos/<owner>/<repo>/ai-insights`
-
-Returns `{ "insight": "Plain English 2-3 sentence summary..." }`.
-Requires `AI_INSIGHTS_ENABLED=true` and `ANTHROPIC_API_KEY` in `.env`.
-
-### `DELETE /api/cache`
-
-```json
-// Body (optional): { "repo": "owner/repo" }
-// Clears one repo or all cached entries.
+Health Score = Activity (40%) + Community (30%) + Maintenance (30%)
 ```
 
 ---
 
-## Quick Start
+##  Red Flag Detection
 
-### Option A — Local development (recommended)
+| Flag | Meaning |
+|------|--------|
+| ARCHIVED | Project is no longer maintained |
+| NO_RECENT_COMMITS | Inactive for 6+ months |
+| SINGLE_CONTRIBUTOR | High bus-factor risk |
+| ISSUE_BACKLOG | Too many unresolved issues |
+| LOW_PR_MERGE_RATE | Contributions ignored |
 
-**1. Backend**
-```bash
+---
+
+##  API Endpoints
+
+- GET /api/repos/<owner>/<repo>
+- GET /api/repos/compare
+- POST /api/repos/batch
+- GET /api/repos/<repo>/ai-insights
+- DELETE /api/cache
+
+---
+
+##  Quick Start
+
+### Backend
+```
 cd backend
 python -m venv venv
-source venv/bin/activate       # Windows: venv\Scripts\activate
+source venv/bin/activate
 pip install -r requirements.txt
-cp ../.env.example ../.env     # fill in GITHUB_TOKEN
-python app.py                  # → http://localhost:5000
+python app.py
 ```
 
-**2. Frontend** (separate terminal)
-```bash
+### Frontend
+```
 cd frontend
 npm install
-npm run dev                    # → http://localhost:5173
-```
-
-The Vite dev server proxies all `/api/*` requests to Flask on `:5000`.
-
-### Option B — Docker (one command)
-
-```bash
-cp .env.example .env           # fill in GITHUB_TOKEN
-docker compose up --build      # → http://localhost:8000
-```
-
-### Run tests
-
-```bash
-cd backend
-pytest                         # all tests
-pytest tests/test_analysis_service.py -v   # unit tests only
-pytest tests/test_api.py -v               # API tests only
+npm run dev
 ```
 
 ---
 
-## Environment Variables
+##  Docker Setup
 
-| Variable              | Required | Default | Description                       |
-|-----------------------|---|---|-----------------------------------|
-| `GITHUB_TOKEN`        | Recommended | — | Raises rate limit 60→5,000 req/hr |
-| `CACHE_TTL`           | No | `300` | Cache expiry in seconds           |
-| `AI_INSIGHTS_ENABLED` | No | `false` | Enable LLM summaries              |
-| `GEMINI_API_KEY`      | If AI enabled | — | GEMINI API key                    |
-| `PORT`                | No | `5000` | Flask port                        |
-| `FLASK_DEBUG`         | No | `1` | Set to `0` in production          |
+```
+docker compose up --build
+```
 
 ---
 
-## Deployment
+##  Testing
 
-### Render / Railway (backend only)
+```
+pytest
+```
 
-1. Set root directory to `backend/`
-2. Build command: `pip install -r requirements.txt`
-3. Start command: `gunicorn -w 4 -b 0.0.0.0:$PORT "app:create_app()"`
-4. Add environment variables in the dashboard
+---
 
-### Future additions (designed for, not yet implemented)
+## Future additions
 
 - **Phase 2:** Replace in-memory cache with Redis; add PostgreSQL to persist analysis history
 - **Phase 3:** JWT authentication; save favourite repositories; view past comparisons
 
-These are explicitly designed as separate git commits so the project history stays clean and readable.
+---
+
+## Author
+
+**Manav Gupta**
+
+Computer Science Student | Backend Developer
+
+GitHub: https://github.com/Manav-Gupta08
+
+---
+
+## License
+
+MIT License
