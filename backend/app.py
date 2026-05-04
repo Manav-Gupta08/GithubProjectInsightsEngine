@@ -16,7 +16,7 @@ def create_app() -> Flask:
     # In dev it's http://localhost:5173
     allowed_origins = os.getenv(
         "CORS_ORIGINS",
-        "http://localhost:5173"
+        "https://repoperate.vercel.app"
     ).split(",")
 
     CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
