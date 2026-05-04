@@ -31,16 +31,16 @@ async function apiFetch(path, options = {}) {
 
 export async function getRepo(slug) {
   const [owner, repo] = slug.split('/')
-  return apiFetch(`repos/${owner}/${repo}`)
+  return apiFetch(`/repos/${owner}/${repo}`)
 }
 
 export async function compareRepos(slug1, slug2) {
   const params = new URLSearchParams({ repo1: slug1, repo2: slug2 })
-  return apiFetch(`repos/compare?${params}`)
+  return apiFetch(`/repos/compare?${params}`)
 }
 
 export async function batchAnalyse(repoList) {
-  return apiFetch('repos/batch', {
+  return apiFetch('/repos/batch', {
     method: 'POST',
     body: JSON.stringify({ repos: repoList }),
   })
@@ -48,7 +48,7 @@ export async function batchAnalyse(repoList) {
 
 export async function getAiInsights(slug) {
   const [owner, repo] = slug.split('/')
-  return apiFetch(`repos/${owner}/${repo}/ai-insights`)
+  return apiFetch(`/repos/${owner}/${repo}/ai-insights`)
 }
 
 export async function clearCache(slug = null) {
