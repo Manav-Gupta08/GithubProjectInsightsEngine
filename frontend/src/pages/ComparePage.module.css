@@ -1,0 +1,40 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.summaryBar {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-5);
+  text-align: center;
+}
+
+.summaryText {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 800px) {
+  .cardGrid { grid-template-columns: 1fr; }
+  .chartRow { flex-direction: column; }
+}
+
+.chartRow {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.chartRow > * {
+  flex: 1;
+}

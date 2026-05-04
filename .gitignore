@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+wheels/
+sdist/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Flask / runtime
+instance/
+flask_session/
+*.log
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+
+# IDEs & editors
+.vscode/
+.idea/
+.iml
+*.swp
+*.swo
+*~
+Thumbs.db
+
+# OS artifacts
+.DS_Store
+.AppleDouble
+.LSOverride
+Desktop.ini
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Misc
+*.bak
+*.tmp
+.cache/

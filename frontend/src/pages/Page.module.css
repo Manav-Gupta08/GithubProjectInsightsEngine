@@ -1,0 +1,49 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Hero section — search input area */
+.hero {
+  text-align: center;
+  padding: var(--space-7) 0 var(--space-5);
+  position: relative;
+}
+
+/* Radial glow behind hero text */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 50% at 50% 0%,
+    rgba(0, 229, 160, 0.055) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+  position: relative;
+}
+
+.heroEm {
+  font-style: normal;
+  color: var(--green);
+}
+
+.heroSub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+  position: relative;
+}

@@ -1,0 +1,39 @@
+.error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: var(--red-dim);
+  border: 1px solid rgba(255, 76, 110, 0.3);
+  border-radius: var(--radius);
+  color: var(--red);
+  font-size: 0.85rem;
+  margin-top: var(--space-4);
+  animation: fadeUp 0.3s ease both;
+}
+
+.errorIcon { font-size: 1rem; flex-shrink: 0; }
+
+.spinnerWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) 0;
+  gap: var(--space-4);
+}
+
+.ring {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--border);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+.spinnerText {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}

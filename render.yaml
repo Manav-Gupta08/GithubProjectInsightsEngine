@@ -1,0 +1,23 @@
+services:
+  # ── Backend (Flask) ───────────────────────────────────────
+  - type: web
+    name: github-insights-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -c gunicorn.cfg.py "app:create_app()"
+    envVars:
+      - key: GITHUB_TOKEN
+        sync: false           # fill this in Render dashboard
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: CACHE_TTL
+        value: "300"
+      - key: AI_INSIGHTS_ENABLED
+        value: "true"
+      - key: GEMINI_API_KEY
+        sync: false           # fill this in Render dashboard
+      - key: CORS_ORIGINS
+        value: https://github-insights-frontend.onrender.com  # update after frontend deploys

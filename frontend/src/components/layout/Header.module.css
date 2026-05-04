@@ -1,0 +1,67 @@
+.header {
+  border-bottom: 1px solid var(--border);
+  background: rgba(11, 12, 16, 0.92);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  color: var(--green);
+  user-select: none;
+}
+
+.logoHex {
+  font-size: 1.3rem;
+  animation: pulse 3s ease infinite;
+}
+
+.logoText { letter-spacing: 0.18em; }
+
+.nav {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.navBtn {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  padding: 6px 18px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: color var(--ease), border-color var(--ease), background var(--ease);
+}
+
+.navBtn:hover {
+  color: var(--text);
+  border-color: var(--border-focus);
+}
+
+.navBtn.active {
+  color: var(--green);
+  border-color: var(--green);
+  background: var(--green-dim);
+}

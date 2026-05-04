@@ -1,0 +1,129 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Ring ── */
+.ringWrap {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: var(--space-2) auto var(--space-5);
+}
+
+.ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ringBg {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 9;
+}
+
+.ringFill {
+  fill: none;
+  stroke-width: 9;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ring-green  { stroke: var(--green); }
+.ring-amber  { stroke: var(--amber); }
+.ring-red    { stroke: var(--red);   }
+
+.ringInner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreNum {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+}
+
+.scoreLabel {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  margin-top: 4px;
+}
+
+.label-green { color: var(--green); }
+.label-amber { color: var(--amber); }
+.label-red   { color: var(--red);   }
+
+/* ── Dimension bars ── */
+.dimensions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.dimRow { display: flex; flex-direction: column; gap: 5px; }
+
+.dimMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.dimValue { font-weight: 700; color: var(--text); }
+
+.barBg {
+  height: 4px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  width: 0;
+  background: var(--green);
+  border-radius: 3px;
+  animation: growBar 0.9s ease 0.2s forwards;
+}
+
+@keyframes growBar {
+  to { width: var(--target-width); }
+}
+
+/* ── Last commit ── */
+.lastCommit {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.lcLabel {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.lcValue {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}

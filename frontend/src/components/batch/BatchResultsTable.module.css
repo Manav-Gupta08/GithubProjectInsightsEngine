@@ -1,0 +1,131 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  animation: fadeUp 0.4s ease both;
+}
+
+.countBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  background: var(--green-dim);
+  color: var(--green);
+  border-radius: 10px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.table th {
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.row {
+  border-bottom: 1px solid var(--border);
+  transition: background var(--ease);
+}
+
+.row:hover { background: var(--bg-panel-2); }
+.row:last-child { border-bottom: none; }
+
+.table td {
+  padding: 12px;
+  vertical-align: middle;
+}
+
+.rankCell { text-align: center; width: 48px; }
+.crown    { font-size: 1.1rem; }
+.rankNum  { font-size: 0.75rem; color: var(--text-dim); }
+
+.repoLink {
+  display: block;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+.repoLink:hover { color: var(--green); }
+
+.lang {
+  display: inline-block;
+  margin-top: 3px;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.score {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.score-green { color: var(--green); }
+.score-amber { color: var(--amber); }
+.score-red   { color: var(--red);   }
+
+.num {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.warnCount {
+  font-size: 0.75rem;
+  color: var(--amber);
+  font-weight: 700;
+}
+
+.noWarn {
+  font-size: 0.75rem;
+  color: var(--green);
+}
+
+/* Failed panel */
+.failedPanel { border-color: rgba(255, 76, 110, 0.2); }
+
+.failedList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.failedItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: 0.82rem;
+}
+
+.failedSlug {
+  font-weight: 700;
+  color: var(--red);
+  min-width: 180px;
+}
+
+.failedReason { color: var(--text-muted); }

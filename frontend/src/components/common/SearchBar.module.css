@@ -1,0 +1,107 @@
+.form {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ── Single ── */
+.searchBox {
+  display: flex;
+  border: 1px solid var(--border-focus);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: box-shadow var(--ease), border-color var(--ease);
+}
+
+.searchBox:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.12);
+}
+
+.searchBox.hasError {
+  border-color: var(--red);
+}
+
+.input {
+  flex: 1;
+  padding: 13px 18px;
+  background: var(--bg-input);
+  border: none;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  outline: none;
+}
+
+.input::placeholder { color: var(--text-dim); }
+
+.btn {
+  padding: 13px 26px;
+  background: var(--green);
+  border: none;
+  color: #000;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: background var(--ease);
+}
+
+.btn:hover:not(:disabled) { background: #00ffb0; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Dual ── */
+.dualBox {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-focus);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: box-shadow var(--ease), border-color var(--ease);
+}
+
+.dualBox:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.12);
+}
+
+.vs {
+  padding: 0 14px;
+  background: var(--bg-panel-2);
+  color: var(--amber);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Spinner ── */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* ── Error ── */
+.error {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--red);
+  text-align: center;
+}
