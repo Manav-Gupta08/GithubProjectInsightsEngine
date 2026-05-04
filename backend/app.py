@@ -19,7 +19,7 @@ def create_app() -> Flask:
         "https://repoperate.vercel.app"
     ).split(",")
 
-    CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
+    CORS(app)
 
     from backend.api.repos import repos_bp
     from backend.api.batch import batch_bp
