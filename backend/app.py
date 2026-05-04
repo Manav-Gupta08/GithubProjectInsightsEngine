@@ -21,8 +21,8 @@ def create_app() -> Flask:
 
     CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
 
-    from api.repos import repos_bp
-    from api.batch import batch_bp
+    from backend.api.repos import repos_bp
+    from backend.api.batch import batch_bp
     app.register_blueprint(repos_bp, url_prefix="/api")
     app.register_blueprint(batch_bp, url_prefix="/api")
 
